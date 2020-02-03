@@ -26,11 +26,18 @@ namespace Controllers
         }
 
         [HttpPost]
-        public int Post(Customer customer)
+        public int Post(CustomerDto customerDto)
         {
-            int score = service.GetScore(customer.Name);
+            //int score = service.GetScore(customerDto.Name);
 
-            return score;
+            //int score = service.AddCustomer(customerDto);
+
+            //int score = customerDto.Score;
+
+
+            CustomerDto dto = service.SaveCustomer(customerDto);
+
+            return dto.Score;
         }
     }
 }

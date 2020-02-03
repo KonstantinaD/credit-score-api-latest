@@ -33,6 +33,8 @@ namespace Controllers
 
             services.AddScoped<CustomerDbContext>();
 
+            services.AddScoped<IScoreRepository, ScoreRepository>();
+
             services.AddScoped<IScoreService, ScoreService>();
 
             services.AddControllers();
