@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Services;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Controllers
 {
@@ -20,22 +18,28 @@ namespace Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public async Task<string> Get()
         {
-            return "Welcome to your Credit Score API!";
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri("http://api.openweathermap.org")
+            };
+
+            var response = await client.GetAsync($"/data/2.5/weather?q=Leeds&appid=d536187460c357fe43f89f4dcc8f9ab8&units=metric");
+
+            response.EnsureSuccessStatusCode();
+
+            var stringResult = await response.Content.ReadAsStringAsync();
+
+            return stringResult;
         }
 
         [HttpPost]
         public int Post(CustomerDto customerDto)
         {
-            //int score = service.GetScore(customerDto.Name);
+            Task<string> weather = Get();
 
-            //int score = service.AddCustomer(customerDto);
-
-            //int score = customerDto.Score;
-
-
-            CustomerDto dto = service.SaveCustomer(customerDto);
+            CustomerDto dto = service.SaveCustomer(customerDto, weather);
 
             return dto.Score;
         }

@@ -1,20 +1,15 @@
-﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 
 namespace Services
 {
     public interface IScoreService
     {
-        /*int for score*/ void AddCustomer(CustomerDto customerDto);
+        public CustomerDto SaveCustomer(CustomerDto customerDto, Task<string> weather);
 
         CustomerDto RetrieveCustomerByName(string name);
 
-        //CustomerDto RetrieveCustomerById(int id);
+        void AddCustomer(CustomerDto customerDto);
 
-        //List<CustomerDto> RetrieveCustomers();
-
-        public CustomerDto SaveCustomer(CustomerDto customerDto);
+        public void EditCustomer(CustomerDto customerDto, Task<string> weather);      
     }
 }

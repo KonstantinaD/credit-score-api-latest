@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Services
 {
@@ -8,6 +6,8 @@ namespace Services
     {
         public int Id { get; set; }
 
+        [Required]
+        [RegularExpression(@"^([a-zA-Z]+[ .'-]?)+([ ,]?)+[a-zA-Z]+\.?$", ErrorMessage = "Please enter a valid name")]
         public string Name { get; set; }
 
         public int Score { get; set; }
